@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0b1324"/>
+      <stop offset="100%" stop-color="#04070f"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="200" height="200" fill="url(#bg)"/>
+  <!-- Outer hex -->
+  <path d="M100 12 L182 56 L182 144 L100 188 L18 144 L18 56 Z"
+        stroke="#c8a84b" stroke-width="2" fill="rgba(200,168,75,0.06)"
+        filter="url(#glow)"/>
+  <!-- Inner hex -->
+  <path d="M100 32 L162 66 L162 134 L100 168 L38 134 L38 66 Z"
+        stroke="rgba(200,168,75,0.35)" stroke-width="1" fill="none"/>
+  <!-- Core circle -->
+  <circle cx="100" cy="100" r="28" fill="rgba(200,168,75,0.12)" stroke="#c8a84b" stroke-width="1.5"/>
+  <!-- V lettermark -->
+  <text x="100" y="115" text-anchor="middle"
+        fill="#c8a84b" font-size="36" font-family="Times New Roman, serif"
+        font-weight="bold" filter="url(#glow)">V</text>
+  <!-- Corner dots -->
+  <circle cx="100" cy="20" r="4" fill="#c8a84b" opacity="0.8"/>
+  <circle cx="174" cy="60" r="3" fill="#c8a84b" opacity="0.6"/>
+  <circle cx="174" cy="140" r="3" fill="#c8a84b" opacity="0.6"/>
+  <circle cx="100" cy="180" r="4" fill="#c8a84b" opacity="0.8"/>
+  <circle cx="26" cy="140" r="3" fill="#c8a84b" opacity="0.6"/>
+  <circle cx="26" cy="60" r="3" fill="#c8a84b" opacity="0.6"/>
+  <!-- Connection lines from center to dots -->
+  <line x1="100" y1="72" x2="100" y2="24" stroke="rgba(200,168,75,0.2)" stroke-width="0.8"/>
+  <line x1="114" y1="80" x2="170" y2="62" stroke="rgba(200,168,75,0.15)" stroke-width="0.8"/>
+</svg>

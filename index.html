@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="Vaultackie — A next-generation IT company founded 2026 by Vignesh Sivajayam. Dharmapuri, Tamil Nadu, India."/>
+<meta name="author" content="Vignesh Sivajayam"/>
+<meta property="og:title" content="Vaultackie | Intelligence Engineered"/>
+<meta property="og:description" content="Enter the next era of technology. Vaultackie — Est. 2026."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.vaultackie.com"/>
+<title>Vaultackie — Intelligence Engineered</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════
+   VAULTACKIE.COM  ·  © 2026 All Rights Reserved
+   Unauthorised use strictly prohibited.
+   Contact: Vignesh Sivajayam — hello@vaultackie.com
+═══════════════════════════════════════════════ */
+
+:root {
+  --ink:    #04070f;
+  --deep:   #070d1a;
+  --panel:  #0b1324;
+  --gold:   #c8a84b;
+  --gold2:  #e8c96a;
+  --amber:  #ff9d3d;
+  --ice:    #a8d8f0;
+  --white:  #f2f0eb;
+  --dim:    rgba(242,240,235,0.45);
+  --dimmer: rgba(242,240,235,0.22);
+  --border: rgba(200,168,75,0.18);
+  --glow-g: 0 0 30px rgba(200,168,75,0.35), 0 0 80px rgba(200,168,75,0.12);
+  --glow-a: 0 0 20px rgba(255,157,61,0.4);
+  --glow-i: 0 0 20px rgba(168,216,240,0.3);
+  --tx: all 0.45s cubic-bezier(0.23,1,0.32,1);
+  --serif: 'Times New Roman', Times, Georgia, serif;
+  --display: 'Cinzel', 'Times New Roman', serif;
+  --display2: 'Cinzel Decorative', 'Times New Roman', serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{
+  font-family:var(--serif);
+  background:var(--ink);
+  color:var(--white);
+  line-height:1.72;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:#030609}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+
+/* ── CURSOR ── */
+#cur,#cur-trail{
+  position:fixed;pointer-events:none;z-index:99999;
+  border-radius:50%;transform:translate(-50%,-50%);
+}
+#cur{
+  width:10px;height:10px;
+  background:var(--gold);
+  box-shadow:var(--glow-g);
+  transition:width .2s,height .2s,background .2s;
+}
+#cur-trail{
+  width:36px;height:36px;
+  border:1px solid rgba(200,168,75,0.5);
+  transition:left .12s ease,top .12s ease,width .3s,height .3s;
+}
+body:has(a:hover) #cur,
+body:has(button:hover) #cur{width:18px;height:18px;background:var(--amber)}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9000;opacity:0.6;
+}
+
+/* ── CANVAS ── */
+#neural-canvas{
+  position:fixed;inset:0;z-index:0;
+  pointer-events:none;opacity:0.55;
+}
+
+/* ═══ LOADER ═══ */
+#loader{
+  position:fixed;inset:0;z-index:100000;
+  background:var(--ink);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:32px;
+  transition:opacity .8s ease,visibility .8s ease;
+}
+#loader.gone{opacity:0;visibility:hidden}
+.loader-hex{
+  position:relative;width:80px;height:92px;
+}
+.loader-hex svg{width:100%;height:100%}
+.loader-hex-path{
+  stroke:#c8a84b;stroke-width:1.5;fill:none;
+  stroke-dasharray:280;stroke-dashoffset:280;
+  animation:hexDraw 1.6s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes hexDraw{to{stroke-dashoffset:0}}
+.loader-wordmark{
+  font-family:var(--display2);
+  font-size:1.6rem;letter-spacing:.35em;
+  color:var(--gold);text-shadow:var(--glow-g);
+  animation:fadeUp .8s .8s both ease;
+}
+.loader-bar-wrap{width:180px;height:1px;background:rgba(200,168,75,.15);overflow:hidden}
+.loader-bar-fill{height:100%;background:var(--gold);animation:barFill 1.8s .3s cubic-bezier(.4,0,.2,1) forwards;width:0}
+@keyframes barFill{to{width:100%}}
+.loader-sub{
+  font-size:.7rem;letter-spacing:.3em;color:rgba(200,168,75,.45);
+  font-family:var(--display);
+  animation:fadeUp .6s 1.2s both ease;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;
+  background:rgba(4,7,15,0.82);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  transition:height .4s ease,background .4s ease;
+}
+nav.scrolled{height:60px;background:rgba(4,7,15,0.96)}
+
+.nav-brand{
+  display:flex;align-items:center;gap:12px;
+  text-decoration:none;
+}
+.nav-hexmark{width:38px;height:44px;flex-shrink:0}
+.nav-wordmark{
+  font-family:var(--display2);
+  font-size:1.15rem;letter-spacing:.12em;
+  color:var(--gold);text-shadow:var(--glow-g);
+}
+
+.nav-links{
+  display:flex;align-items:center;gap:36px;
+  list-style:none;
+}
+.nav-links a{
+  font-family:var(--display);font-size:.78rem;
+  letter-spacing:.12em;color:var(--dim);
+  text-decoration:none;position:relative;
+  transition:color .3s;font-style:italic;
+}
+.nav-links a::after{
+  content:'';position:absolute;
+  bottom:-3px;left:0;width:0;height:1px;
+  background:var(--gold);
+  transition:width .35s ease;
+  box-shadow:var(--glow-g);
+}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{width:100%}
+
+.nav-join{
+  font-family:var(--display);font-size:.76rem;
+  letter-spacing:.16em;padding:10px 26px;
+  background:linear-gradient(135deg,var(--gold),#a07c2e);
+  color:var(--ink);font-weight:700;
+  border:none;border-radius:1px;
+  text-decoration:none;cursor:pointer;
+  transition:var(--tx);display:inline-block;
+  box-shadow:0 0 0 rgba(200,168,75,0);
+}
+.nav-join:hover{
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  box-shadow:var(--glow-g);
+  transform:translateY(-2px);
+}
+
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;padding:4px;
+}
+.hamburger span{
+  width:24px;height:1.5px;
+  background:var(--gold);transition:var(--tx);
+}
+
+/* ═══ SECTIONS BASE ═══ */
+section{position:relative;z-index:2}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:14px;
+  font-family:var(--display);font-size:.66rem;
+  letter-spacing:.32em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:14px;
+}
+.eyebrow::before,
+.eyebrow::after{
+  content:'';width:24px;height:1px;
+  background:var(--gold);box-shadow:var(--glow-g);
+}
+.section-title{
+  font-family:var(--display2);
+  font-size:clamp(1.9rem,4vw,3rem);
+  font-weight:700;color:var(--white);
+  line-height:1.15;margin-bottom:16px;
+}
+.section-sub{
+  font-size:1.02rem;color:var(--dim);
+  max-width:520px;font-style:italic;
+  line-height:1.8;margin-bottom:52px;
+}
+
+/* ═══ HERO ═══ */
+#hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:120px 5% 80px;
+  gap:60px;
+  position:relative;overflow:hidden;
+}
+
+/* Deep space background */
+#hero::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 70% 70% at 70% 40%,rgba(200,168,75,.07) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 40% at 10% 80%,rgba(255,157,61,.05) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 50% at 80% 80%,rgba(168,216,240,.04) 0%,transparent 60%),
+    linear-gradient(180deg,#04070f 0%,#070d1a 60%,#04070f 100%);
+}
+
+/* Diagonal gold rule */
+#hero::after{
+  content:'';position:absolute;
+  top:0;left:55%;bottom:0;
+  width:1px;
+  background:linear-gradient(180deg,transparent,rgba(200,168,75,.2) 30%,rgba(200,168,75,.2) 70%,transparent);
+  z-index:1;
+}
+
+.hero-left{position:relative;z-index:2;animation:heroL 1.2s cubic-bezier(.23,1,.32,1) both}
+.hero-right{position:relative;z-index:2;animation:heroR 1.4s .2s cubic-bezier(.23,1,.32,1) both}
+@keyframes heroL{from{opacity:0;transform:translateX(-50px)}to{opacity:1;transform:none}}
+@keyframes heroR{from{opacity:0;transform:translateX(50px)}to{opacity:1;transform:none}}
+
+.hero-est{
+  font-family:var(--display);font-size:.68rem;
+  letter-spacing:.35em;color:rgba(200,168,75,.6);
+  margin-bottom:20px;display:block;
+}
+
+.hero-h1{
+  font-family:var(--display2);
+  font-size:clamp(3rem,6.5vw,6rem);
+  font-weight:900;line-height:1.0;
+  color:var(--white);margin-bottom:10px;
+}
+.hero-h1 .gold-word{
+  color:var(--gold);
+  text-shadow:var(--glow-g);
+  display:block;
+}
+
+.hero-tagline{
+  font-family:var(--display);
+  font-size:clamp(.95rem,1.8vw,1.3rem);
+  color:var(--dim);letter-spacing:.06em;
+  font-style:italic;margin-bottom:40px;
+  padding-left:2px;
+  border-left:2px solid var(--gold);
+  padding:8px 0 8px 18px;
+}
+.hero-tagline strong{color:var(--gold2);font-style:normal}
+
+.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+
+.btn-gold{
+  font-family:var(--display);font-size:.8rem;
+  letter-spacing:.16em;padding:14px 36px;
+  background:linear-gradient(135deg,var(--gold),#9a7228);
+  color:var(--ink);font-weight:700;border:none;
+  border-radius:1px;text-decoration:none;cursor:pointer;
+  transition:var(--tx);display:inline-block;
+}
+.btn-gold:hover{
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  box-shadow:var(--glow-g);transform:translateY(-3px);
+}
+.btn-ghost{
+  font-family:var(--display);font-size:.78rem;
+  letter-spacing:.14em;padding:13px 28px;
+  background:transparent;
+  border:1px solid rgba(200,168,75,.35);
+  color:var(--gold);border-radius:1px;
+  text-decoration:none;cursor:pointer;transition:var(--tx);
+  display:inline-block;font-style:italic;
+}
+.btn-ghost:hover{
+  border-color:var(--gold);background:rgba(200,168,75,.07);
+  box-shadow:var(--glow-g);
+}
+
+/* Hero stats strip */
+.hero-stats{
+  display:flex;gap:40px;margin-top:52px;
+  padding-top:36px;
+  border-top:1px solid var(--border);
+}
+.h-stat-num{
+  font-family:var(--display2);
+  font-size:1.8rem;font-weight:700;
+  color:var(--gold);text-shadow:var(--glow-g);
+  display:block;
+}
+.h-stat-label{
+  font-size:.72rem;letter-spacing:.14em;
+  color:var(--dimmer);font-family:var(--display);
+  font-style:italic;
+}
+
+/* ── Hero Visual Panel ── */
+.hero-vis{
+  display:flex;flex-direction:column;gap:20px;
+}
+
+/* Quantum CPU card */
+.qcard{
+  background:rgba(11,19,36,.7);
+  border:1px solid var(--border);
+  border-radius:3px;padding:32px;
+  position:relative;overflow:hidden;
+  backdrop-filter:blur(8px);
+}
+.qcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.qcard-label{
+  font-family:var(--display);font-size:.66rem;
+  letter-spacing:.22em;color:var(--gold);
+  margin-bottom:20px;
+}
+
+/* Binary stream */
+.binary-rain{
+  font-family:'Courier New',monospace;
+  font-size:.62rem;line-height:1.4;
+  color:rgba(200,168,75,.2);
+  letter-spacing:.1em;
+  white-space:nowrap;overflow:hidden;
+  text-overflow:clip;
+  animation:binShift 12s linear infinite;
+}
+@keyframes binShift{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-30px)}
+}
+
+/* Algorithm display */
+.algo-display{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;
+}
+.algo-chip{
+  font-family:'Courier New',monospace;font-size:.68rem;
+  padding:4px 12px;
+  background:rgba(200,168,75,.08);
+  border:1px solid rgba(200,168,75,.2);
+  color:rgba(200,168,75,.7);border-radius:1px;
+  letter-spacing:.06em;
+}
+
+/* AI Brain ring */
+.brain-ring{
+  display:flex;align-items:center;justify-content:center;
+  position:relative;height:180px;
+}
+.brain-ring svg{
+  filter:drop-shadow(0 0 18px rgba(200,168,75,.3));
+}
+
+/* Mini info card */
+.info-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+}
+.info-chip{
+  background:rgba(11,19,36,.6);
+  border:1px solid var(--border);
+  border-radius:2px;padding:16px;
+  font-size:.82rem;
+}
+.info-chip-label{
+  font-family:var(--display);font-size:.6rem;
+  letter-spacing:.18em;color:var(--gold);
+  margin-bottom:6px;
+}
+.info-chip-val{color:var(--white);font-style:italic}
+
+/* ═══ ABOUT SECTION ═══ */
+#about{
+  padding:100px 5%;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;
+}
+
+.founder-frame{
+  position:relative;
+}
+.founder-hexbg{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  opacity:.06;
+}
+.founder-card-main{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:3px;padding:44px 36px;
+  position:relative;overflow:hidden;
+}
+.founder-card-main::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),var(--amber),var(--gold),transparent);
+}
+.founder-card-main::after{
+  content:'';position:absolute;bottom:0;right:0;
+  width:120px;height:120px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(200,168,75,.06),transparent 70%);
+}
+
+.founder-avatar-wrap{
+  width:100px;height:100px;
+  border-radius:50%;
+  border:1.5px solid var(--gold);
+  box-shadow:var(--glow-g);
+  overflow:hidden;
+  margin-bottom:22px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(200,168,75,.2),rgba(11,19,36,.8));
+}
+.founder-name{
+  font-family:var(--display2);font-size:1.4rem;
+  font-weight:700;color:var(--white);margin-bottom:4px;
+}
+.founder-role{
+  font-family:var(--display);font-size:.72rem;
+  letter-spacing:.2em;color:var(--gold);
+  margin-bottom:6px;font-style:italic;
+}
+.founder-origin{
+  font-size:.82rem;color:var(--dimmer);
+  margin-bottom:22px;font-style:italic;
+  display:flex;align-items:center;gap:6px;
+}
+.founder-bio{
+  font-size:.96rem;color:var(--dim);
+  line-height:1.85;border-top:1px solid var(--border);
+  padding-top:20px;
+}
+
+.about-text p{
+  font-size:1rem;color:var(--dim);
+  line-height:1.85;margin-bottom:20px;
+}
+
+.mission-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  margin-top:36px;
+}
+.mission-item{
+  background:rgba(200,168,75,.04);
+  border:1px solid var(--border);
+  border-radius:2px;padding:20px;
+  position:relative;overflow:hidden;
+}
+.mission-item::before{
+  content:'';position:absolute;
+  top:0;left:0;width:2px;height:100%;
+  background:var(--gold);box-shadow:var(--glow-g);
+}
+.mission-item-title{
+  font-family:var(--display);font-size:.75rem;
+  letter-spacing:.14em;color:var(--gold);
+  margin-bottom:6px;
+}
+.mission-item-text{
+  font-size:.85rem;color:var(--dim);
+  font-style:italic;line-height:1.6;
+}
+
+/* ═══ SERVICES SECTION ═══ */
+#services{padding:100px 5%}
+#services .section-header{margin-bottom:60px}
+
+.services-hex-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:3px;overflow:hidden;
+}
+.svc-cell{
+  background:var(--panel);
+  padding:44px 32px;
+  position:relative;overflow:hidden;
+  transition:var(--tx);cursor:default;
+}
+.svc-cell:hover{
+  background:rgba(11,19,36,.95);
+  z-index:2;
+}
+.svc-cell::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(200,168,75,.08),transparent 60%);
+  opacity:0;transition:opacity .4s;
+}
+.svc-cell:hover::after{opacity:1}
+
+.svc-icon-wrap{
+  width:52px;height:52px;margin-bottom:22px;
+  position:relative;z-index:1;
+}
+.svc-icon-wrap svg{
+  width:100%;height:100%;
+  filter:drop-shadow(0 0 8px rgba(200,168,75,.4));
+  transition:filter .4s;
+}
+.svc-cell:hover .svc-icon-wrap svg{
+  filter:drop-shadow(0 0 16px rgba(200,168,75,.7));
+}
+.svc-name{
+  font-family:var(--display);font-size:1rem;
+  font-weight:700;color:var(--white);
+  margin-bottom:10px;letter-spacing:.04em;
+  position:relative;z-index:1;
+}
+.svc-desc{
+  font-size:.9rem;color:var(--dim);
+  line-height:1.75;font-style:italic;
+  position:relative;z-index:1;
+}
+.svc-num{
+  position:absolute;bottom:16px;right:20px;
+  font-family:var(--display2);font-size:2.8rem;
+  font-weight:900;color:rgba(200,168,75,.05);
+  line-height:1;user-select:none;
+  transition:color .4s;
+}
+.svc-cell:hover .svc-num{color:rgba(200,168,75,.09)}
+
+/* ═══ TECH SHOWCASE ═══ */
+#tech{
+  padding:100px 5%;
+  background:linear-gradient(180deg,transparent,rgba(200,168,75,.025) 50%,transparent);
+}
+.tech-grid{
+  display:grid;
+  grid-template-columns:1.2fr 1fr 1fr;
+  gap:24px;margin-top:0;
+}
+/* Big left panel */
+.tech-big{
+  grid-row:span 2;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:3px;padding:44px 36px;
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+}
+.tech-big::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.tech-small{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:3px;padding:32px 28px;
+  position:relative;overflow:hidden;
+  transition:var(--tx);
+}
+.tech-small:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(0,0,0,.4),var(--glow-g);
+}
+.tech-small::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transition:transform .4s;
+}
+.tech-small:hover::before{transform:scaleX(1)}
+
+.tech-label{
+  font-family:var(--display);font-size:.65rem;
+  letter-spacing:.24em;color:var(--gold);margin-bottom:14px;
+}
+.tech-title{
+  font-family:var(--display);font-size:1.15rem;
+  font-weight:700;color:var(--white);margin-bottom:12px;
+}
+.tech-body{
+  font-size:.9rem;color:var(--dim);
+  font-style:italic;line-height:1.75;
+  flex:1;
+}
+.tech-vis{
+  margin-top:28px;flex:1;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* Quantum animation in tech panel */
+.quantum-rings{
+  position:relative;width:180px;height:180px;
+  display:flex;align-items:center;justify-content:center;
+}
+.qr{
+  position:absolute;border-radius:50%;border:1px solid;
+  animation:qSpin 8s linear infinite;
+}
+.qr1{width:180px;height:180px;border-color:rgba(200,168,75,.25);animation-duration:12s}
+.qr2{width:130px;height:130px;border-color:rgba(200,168,75,.4);animation-duration:8s;animation-direction:reverse}
+.qr3{width:80px;height:80px;border-color:rgba(200,168,75,.6);animation-duration:5s}
+.qr-center{
+  width:28px;height:28px;border-radius:50%;
+  background:radial-gradient(circle,var(--gold),rgba(200,168,75,.3));
+  box-shadow:var(--glow-g),0 0 40px rgba(200,168,75,.2);
+  animation:qPulse 2.5s ease-in-out infinite;
+}
+@keyframes qSpin{to{transform:rotate(360deg)}}
+@keyframes qPulse{
+  0%,100%{transform:scale(1);box-shadow:var(--glow-g)}
+  50%{transform:scale(1.3);box-shadow:0 0 40px rgba(200,168,75,.6)}
+}
+/* Orbit dots */
+.qr::after{
+  content:'';position:absolute;
+  width:6px;height:6px;border-radius:50%;
+  background:var(--gold);box-shadow:var(--glow-g);
+  top:-3px;left:50%;transform:translateX(-50%);
+}
+
+/* ═══ FUTURE PLANS ═══ */
+#future{padding:100px 5%}
+.future-layout{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:start;
+}
+.timeline{
+  position:relative;padding-left:56px;
+}
+.timeline::before{
+  content:'';position:absolute;
+  left:16px;top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,
+    transparent,
+    var(--gold) 10%,
+    var(--gold) 90%,
+    transparent
+  );
+  box-shadow:var(--glow-g);
+}
+.tl-item{position:relative;margin-bottom:48px}
+.tl-item:last-child{margin-bottom:0}
+
+.tl-dot{
+  position:absolute;left:-48px;top:4px;
+  width:22px;height:22px;border-radius:50%;
+  border:1.5px solid var(--gold);
+  background:var(--ink);
+  box-shadow:var(--glow-g);
+  display:flex;align-items:center;justify-content:center;
+}
+.tl-dot::after{
+  content:'';width:7px;height:7px;
+  border-radius:50%;background:var(--gold);
+}
+.tl-year{
+  font-family:var(--display);font-size:.66rem;
+  letter-spacing:.22em;color:var(--gold);
+  margin-bottom:8px;
+}
+.tl-title{
+  font-family:var(--display);font-size:1.1rem;
+  font-weight:700;color:var(--white);margin-bottom:8px;
+}
+.tl-desc{
+  font-size:.92rem;color:var(--dim);
+  line-height:1.8;font-style:italic;
+}
+
+/* Future visual */
+.future-vis{
+  position:sticky;top:120px;
+}
+.circuit-board{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:3px;padding:44px;
+  position:relative;overflow:hidden;
+}
+.circuit-board::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+/* ═══ JOIN / CTA SECTION ═══ */
+#join{
+  padding:120px 5%;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+#join::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%,rgba(200,168,75,.07),transparent 70%);
+}
+.join-inner{max-width:680px;margin:0 auto;position:relative;z-index:2}
+.join-title{
+  font-family:var(--display2);
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:900;color:var(--white);
+  line-height:1.1;margin-bottom:20px;
+}
+.join-title span{
+  color:var(--gold);text-shadow:var(--glow-g);
+  display:block;
+}
+.join-sub{
+  font-size:1.1rem;color:var(--dim);
+  font-style:italic;margin-bottom:44px;
+  line-height:1.75;
+}
+.join-btn{
+  font-family:var(--display2);font-size:1rem;
+  letter-spacing:.2em;padding:20px 64px;
+  background:linear-gradient(135deg,var(--gold),#9a7228);
+  color:var(--ink);font-weight:700;
+  border:none;border-radius:1px;
+  text-decoration:none;cursor:pointer;
+  transition:var(--tx);display:inline-block;
+  position:relative;overflow:hidden;
+}
+.join-btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.2),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.join-btn:hover::after{opacity:1}
+.join-btn:hover{
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  box-shadow:var(--glow-g),0 20px 60px rgba(200,168,75,.25);
+  transform:translateY(-4px) scale(1.02);
+}
+
+.join-note{
+  margin-top:24px;font-size:.78rem;
+  color:var(--dimmer);font-style:italic;
+  font-family:var(--display);letter-spacing:.08em;
+}
+
+/* ═══ CONTACT ═══ */
+#contact{
+  padding:100px 5%;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:start;
+}
+.contact-block{margin-bottom:32px}
+.c-item{
+  display:flex;align-items:center;gap:16px;
+  padding:20px 24px;margin-bottom:12px;
+  background:var(--panel);
+  border:1px solid var(--border);border-radius:2px;
+  transition:var(--tx);
+}
+.c-item:hover{
+  border-color:rgba(200,168,75,.5);
+  transform:translateX(6px);
+}
+.c-icon{
+  width:40px;height:40px;flex-shrink:0;
+  filter:drop-shadow(0 0 6px rgba(200,168,75,.4));
+}
+.c-label{
+  font-family:var(--display);font-size:.62rem;
+  letter-spacing:.18em;color:var(--gold);margin-bottom:4px;
+}
+.c-val{font-size:.96rem;color:var(--white)}
+.c-val a{color:inherit;text-decoration:none;transition:color .3s}
+.c-val a:hover{color:var(--gold)}
+
+/* Contact form */
+.contact-form{display:flex;flex-direction:column;gap:16px}
+.f-label{
+  font-family:var(--display);font-size:.65rem;
+  letter-spacing:.16em;color:var(--dim);margin-bottom:8px;
+  display:block;
+}
+.f-input,
+.f-textarea{
+  width:100%;
+  background:rgba(200,168,75,.04);
+  border:1px solid var(--border);
+  border-radius:1px;padding:14px 16px;
+  color:var(--white);
+  font-family:var(--serif);font-size:.96rem;
+  outline:none;transition:var(--tx);
+  font-style:italic;
+}
+.f-input:focus,
+.f-textarea:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(200,168,75,.08),var(--glow-g);
+  background:rgba(200,168,75,.07);
+}
+.f-input::placeholder,
+.f-textarea::placeholder{color:var(--dimmer)}
+.f-textarea{min-height:120px;resize:none}
+.f-submit{
+  font-family:var(--display);font-size:.8rem;
+  letter-spacing:.18em;padding:15px;
+  background:linear-gradient(135deg,var(--gold),#9a7228);
+  color:var(--ink);font-weight:700;
+  border:none;border-radius:1px;cursor:pointer;
+  transition:var(--tx);
+}
+.f-submit:hover{
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  box-shadow:var(--glow-g);transform:translateY(-2px);
+}
+
+/* ═══ FOOTER ═══ */
+footer{
+  background:#030609;
+  border-top:1px solid var(--border);
+  padding:60px 5% 36px;
+}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr;
+  gap:60px;margin-bottom:48px;
+}
+.footer-brand-name{
+  font-family:var(--display2);font-size:1.6rem;
+  color:var(--gold);text-shadow:var(--glow-g);
+  letter-spacing:.08em;margin-bottom:16px;
+  display:block;
+}
+.footer-brand-desc{
+  font-size:.88rem;color:var(--dimmer);
+  max-width:300px;line-height:1.8;
+  font-style:italic;
+}
+
+/* Social icons */
+.socials{display:flex;gap:12px;margin-top:28px}
+.social-btn{
+  width:42px;height:42px;
+  background:rgba(200,168,75,.06);
+  border:1px solid var(--border);border-radius:1px;
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;transition:var(--tx);
+  color:var(--dim);
+}
+.social-btn:hover{
+  border-color:var(--gold);
+  box-shadow:var(--glow-g);
+  color:var(--gold);
+  transform:translateY(-3px);
+}
+.social-btn svg{width:18px;height:18px;fill:currentColor}
+
+.footer-col h5{
+  font-family:var(--display);font-size:.68rem;
+  letter-spacing:.22em;color:var(--gold);
+  margin-bottom:20px;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul a{
+  font-size:.88rem;color:var(--dimmer);
+  text-decoration:none;transition:color .3s;
+  font-style:italic;
+}
+.footer-col ul a:hover{color:var(--gold)}
+
+.footer-bottom{
+  border-top:1px solid var(--border);
+  padding-top:28px;
+  display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:12px;
+}
+.footer-copy{
+  font-size:.75rem;color:var(--dimmer);font-style:italic;
+  line-height:1.6;
+}
+.footer-copy strong{color:rgba(200,168,75,.6)}
+.footer-right{
+  font-size:.65rem;letter-spacing:.16em;
+  color:rgba(200,168,75,.25);font-family:var(--display);
+  text-transform:uppercase;
+}
+
+/* ═══ MOBILE NAV OPEN ═══ */
+.nav-links.open{
+  display:flex !important;flex-direction:column;gap:20px;
+  position:fixed;top:72px;left:0;right:0;
+  background:rgba(4,7,15,.98);
+  border-bottom:1px solid var(--border);
+  padding:32px 5%;z-index:999;
+  animation:slideDown .3s ease;
+  backdrop-filter:blur(24px);
+}
+@keyframes slideDown{from{transform:translateY(-10px);opacity:0}to{opacity:1}}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){
+  #hero{grid-template-columns:1fr;gap:40px;text-align:center;padding:100px 5% 60px}
+  #hero::after{display:none}
+  .hero-actions{justify-content:center}
+  .hero-stats{justify-content:center}
+  .hero-right{max-width:500px;margin:0 auto}
+  #about{grid-template-columns:1fr;gap:48px}
+  .services-hex-grid{grid-template-columns:1fr 1fr}
+  .tech-grid{grid-template-columns:1fr 1fr}
+  .tech-big{grid-row:auto}
+  .future-layout{grid-template-columns:1fr;gap:48px}
+  .future-vis{position:static}
+  #contact{grid-template-columns:1fr;gap:48px}
+  .footer-top{grid-template-columns:1fr 1fr;gap:40px}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .nav-join{display:none}
+  .services-hex-grid{grid-template-columns:1fr}
+  .tech-grid{grid-template-columns:1fr}
+  .mission-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  .hero-stats{flex-wrap:wrap;gap:24px}
+  .info-row{grid-template-columns:1fr}
+}
+
+/* ═══ SCROLL REVEAL ═══ */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .8s ease,transform .8s cubic-bezier(.23,1,.32,1);
+}
+.reveal.visible{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}
+.reveal-d2{transition-delay:.2s}
+.reveal-d3{transition-delay:.3s}
+.reveal-d4{transition-delay:.4s}
+
+/* ═══ GOLD DIVIDER ═══ */
+.gold-divider{
+  display:flex;align-items:center;gap:16px;
+  margin:0 5%;padding:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+}
+
+/* Floating hexagon decoration */
+.hex-deco{
+  position:absolute;opacity:.04;pointer-events:none;
+  animation:hexFloat 8s ease-in-out infinite;
+}
+@keyframes hexFloat{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-20px) rotate(6deg)}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="cur-trail"></div>
+
+<!-- NEURAL CANVAS -->
+<canvas id="neural-canvas"></canvas>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-hex">
+    <svg viewBox="0 0 80 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="loader-hex-path" d="M40 4 L76 23 L76 69 L40 88 L4 69 L4 23 Z"/>
+      <text x="40" y="54" text-anchor="middle" fill="rgba(200,168,75,0.8)" font-size="22" font-family="Times New Roman,serif" font-weight="bold">V</text>
+    </svg>
+  </div>
+  <div class="loader-wordmark">VAULTACKIE</div>
+  <div class="loader-bar-wrap"><div class="loader-bar-fill"></div></div>
+  <div class="loader-sub">Intelligence Engineered · Est. 2026</div>
+</div>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav id="main-nav">
+  <a class="nav-brand" href="#hero">
+    <svg class="nav-hexmark" viewBox="0 0 38 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 2 L36 11 L36 33 L19 42 L2 33 L2 11 Z" stroke="#c8a84b" stroke-width="1.5" fill="rgba(200,168,75,0.08)"/>
+      <path d="M19 8 L30 14 L30 30 L19 36 L8 30 L8 14 Z" stroke="rgba(200,168,75,0.35)" stroke-width="0.8" fill="none"/>
+      <text x="19" y="26" text-anchor="middle" fill="#c8a84b" font-size="13" font-family="Times New Roman,serif" font-weight="bold">V</text>
+    </svg>
+    <span class="nav-wordmark">VAULTACKIE</span>
+  </a>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#tech">Technology</a></li>
+    <li><a href="#future">Future</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <a href="https://forms.gle/MjbdMyRvbcY55KBUA" target="_blank" rel="noopener noreferrer" class="nav-join">Join Today</a>
+
+  <div class="hamburger" id="hamburger" role="button" tabindex="0" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section id="hero">
+  <!-- Floating hex decoration -->
+  <svg class="hex-deco" style="width:300px;top:10%;right:-80px" viewBox="0 0 200 230" fill="none"><path d="M100 10 L190 55 L190 175 L100 220 L10 175 L10 55 Z" stroke="rgba(200,168,75,1)" stroke-width="1"/></svg>
+  <svg class="hex-deco" style="width:160px;bottom:5%;left:-40px;animation-delay:-3s" viewBox="0 0 200 230" fill="none"><path d="M100 10 L190 55 L190 175 L100 220 L10 175 L10 55 Z" stroke="rgba(200,168,75,1)" stroke-width="1"/></svg>
+
+  <div class="hero-left">
+    <span class="hero-est">EST. 2026 · DHARMAPURI, TAMIL NADU, INDIA</span>
+    <h1 class="hero-h1">
+      Intelligence<br/>
+      <span class="gold-word">Engineered.</span>
+    </h1>
+    <p class="hero-tagline">
+      A frontier IT company redefining what technology can accomplish.<br/>
+      <strong>We don't follow the future — we architect it.</strong>
+    </p>
+    <div class="hero-actions">
+      <a href="https://forms.gle/MjbdMyRvbcY55KBUA" target="_blank" rel="noopener noreferrer" class="btn-gold">Join Today ↗</a>
+      <a href="#services" class="btn-ghost">Explore Services</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="h-stat-num">2026</span>
+        <span class="h-stat-label">Founded</span>
+      </div>
+      <div>
+        <span class="h-stat-num">∞</span>
+        <span class="h-stat-label">Ambition</span>
+      </div>
+      <div>
+        <span class="h-stat-num">1</span>
+        <span class="h-stat-label">Vision</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-vis">
+      <!-- Quantum visual card -->
+      <div class="qcard">
+        <div class="qcard-label">◈ SYSTEM ARCHITECTURE · LIVE</div>
+        <div class="brain-ring">
+          <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer hex -->
+            <path d="M90 8 L166 50 L166 130 L90 172 L14 130 L14 50 Z" stroke="rgba(200,168,75,0.2)" stroke-width="1" stroke-dasharray="8 4">
+              <animateTransform attributeName="transform" type="rotate" from="0 90 90" to="360 90 90" dur="30s" repeatCount="indefinite"/>
+            </path>
+            <!-- Mid ring -->
+            <circle cx="90" cy="90" r="55" stroke="rgba(200,168,75,0.3)" stroke-width="1" stroke-dasharray="6 6">
+              <animateTransform attributeName="transform" type="rotate" from="360 90 90" to="0 90 90" dur="15s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Inner ring -->
+            <circle cx="90" cy="90" r="32" stroke="rgba(200,168,75,0.5)" stroke-width="1">
+              <animateTransform attributeName="transform" type="rotate" from="0 90 90" to="360 90 90" dur="8s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Core -->
+            <circle cx="90" cy="90" r="16" fill="rgba(200,168,75,0.15)" stroke="#c8a84b" stroke-width="1.5"/>
+            <text x="90" y="96" text-anchor="middle" fill="#c8a84b" font-size="13" font-family="Times New Roman,serif" font-weight="bold">AI</text>
+            <!-- Neural dots -->
+            <circle cx="90" cy="35" r="4" fill="#c8a84b" opacity="0.8"><animate attributeName="opacity" values="0.8;0.2;0.8" dur="2s" repeatCount="indefinite"/></circle>
+            <circle cx="145" cy="68" r="3" fill="#c8a84b" opacity="0.6"><animate attributeName="opacity" values="0.6;1;0.6" dur="2.5s" repeatCount="indefinite"/></circle>
+            <circle cx="145" cy="112" r="3.5" fill="#c8a84b" opacity="0.7"><animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.8s" repeatCount="indefinite"/></circle>
+            <circle cx="90" cy="145" r="4" fill="#c8a84b" opacity="0.8"><animate attributeName="opacity" values="0.8;0.3;0.8" dur="3s" repeatCount="indefinite"/></circle>
+            <circle cx="35" cy="112" r="3" fill="#c8a84b" opacity="0.6"><animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" repeatCount="indefinite"/></circle>
+            <circle cx="35" cy="68" r="3.5" fill="#c8a84b" opacity="0.7"><animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.6s" repeatCount="indefinite"/></circle>
+            <!-- Connecting lines -->
+            <line x1="90" y1="74" x2="90" y2="39" stroke="rgba(200,168,75,0.3)" stroke-width="0.8"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/></line>
+            <line x1="104" y1="82" x2="141" y2="70" stroke="rgba(200,168,75,0.3)" stroke-width="0.8"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.5s" repeatCount="indefinite"/></line>
+            <line x1="104" y1="98" x2="141" y2="110" stroke="rgba(200,168,75,0.3)" stroke-width="0.8"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="1.8s" repeatCount="indefinite"/></line>
+          </svg>
+        </div>
+        <!-- Binary rain -->
+        <div class="binary-rain">01101100 01110110 00110100 11001010 10110011 01010101 11001100 00110011</div>
+        <div class="algo-display">
+          <span class="algo-chip">∑ O(log n)</span>
+          <span class="algo-chip">∇L(θ)→0</span>
+          <span class="algo-chip">Ψ|0⟩+|1⟩</span>
+          <span class="algo-chip">∫ f(x)dx</span>
+          <span class="algo-chip">P≠NP</span>
+        </div>
+      </div>
+
+      <!-- Info chips -->
+      <div class="info-row">
+        <div class="info-chip">
+          <div class="info-chip-label">CEO &amp; FOUNDER</div>
+          <div class="info-chip-val">Vignesh Sivajayam</div>
+        </div>
+        <div class="info-chip">
+          <div class="info-chip-label">HEADQUARTERS</div>
+          <div class="info-chip-val">Dharmapuri, Tamil Nadu</div>
+        </div>
+        <div class="info-chip">
+          <div class="info-chip-label">DOMAIN</div>
+          <div class="info-chip-val">vaultackie.com</div>
+        </div>
+        <div class="info-chip">
+          <div class="info-chip-label">SECTOR</div>
+          <div class="info-chip-val">Advanced IT &amp; AI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══════════════════════ ABOUT ═══════════════════════ -->
+<section id="about">
+  <div class="founder-frame reveal">
+    <div class="founder-card-main">
+      <!-- Founder SVG Avatar -->
+      <div class="founder-avatar-wrap">
+        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="50" fill="linear-gradient(135deg,#1a2740,#070d1a)"/>
+          <!-- Background -->
+          <rect width="100" height="100" fill="url(#avGrad)"/>
+          <defs>
+            <radialGradient id="avGrad" cx="50%" cy="40%" r="70%">
+              <stop offset="0%" stop-color="rgba(200,168,75,0.25)"/>
+              <stop offset="100%" stop-color="rgba(7,13,26,0.95)"/>
+            </radialGradient>
+          </defs>
+          <!-- Head silhouette -->
+          <circle cx="50" cy="38" r="20" fill="rgba(200,168,75,0.15)" stroke="rgba(200,168,75,0.5)" stroke-width="1"/>
+          <!-- Body -->
+          <path d="M 15 95 Q 15 68 50 66 Q 85 68 85 95 Z" fill="rgba(200,168,75,0.12)" stroke="rgba(200,168,75,0.3)" stroke-width="0.8"/>
+          <!-- Tech pattern on head -->
+          <circle cx="50" cy="38" r="13" fill="rgba(200,168,75,0.08)"/>
+          <text x="50" y="44" text-anchor="middle" fill="rgba(200,168,75,0.9)" font-size="14" font-family="Times New Roman,serif" font-weight="bold">V</text>
+          <!-- Outer ring -->
+          <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(200,168,75,0.2)" stroke-width="0.8" stroke-dasharray="5 3"/>
+        </svg>
+      </div>
+      <div class="founder-name">Vignesh Sivajayam</div>
+      <div class="founder-role">CEO &amp; Founder · Vaultackie</div>
+      <div class="founder-origin">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="rgba(200,168,75,0.6)"/></svg>
+        Dharmapuri, Tamil Nadu, India
+      </div>
+      <p class="founder-bio">
+        A visionary technologist from the heart of Tamil Nadu, Vignesh Sivajayam founded Vaultackie in 2026 with one conviction: that the most transformative technology would be built not in Silicon Valley, but wherever extraordinary minds dare to dream. With deep expertise spanning artificial intelligence, system architecture, and quantum computing principles, he is steering Vaultackie toward becoming India's most consequential technology company — and ultimately, a global force shaping the next chapter of civilisation.
+      </p>
+    </div>
+  </div>
+
+  <div class="about-text">
+    <div class="eyebrow">Our Story</div>
+    <h2 class="section-title reveal">Born in India.<br/>Built for the World.</h2>
+    <p class="reveal reveal-d1">
+      Vaultackie emerged from a conviction that transformative technology isn't the exclusive province of established centres — it belongs wherever vision, discipline, and determination converge. Founded in 2026 by Vignesh Sivajayam in Dharmapuri, Tamil Nadu, we began with a small team and an enormous mandate.
+    </p>
+    <p class="reveal reveal-d2">
+      Our name is our character: a <em>vault</em> — a place of permanence, protection, and profound value. Everything we build carries that weight. We engineer systems that last. We craft solutions that matter.
+    </p>
+    <p class="reveal reveal-d3">
+      From AI and quantum-inspired computing to enterprise infrastructure and cybersecurity, Vaultackie operates at the frontier of the possible — and then pushes further.
+    </p>
+
+    <div class="mission-grid">
+      <div class="mission-item reveal">
+        <div class="mission-item-title">Our Mission</div>
+        <p class="mission-item-text">To engineer intelligent systems that elevate businesses, empower people, and expand human potential through technology.</p>
+      </div>
+      <div class="mission-item reveal reveal-d1">
+        <div class="mission-item-title">Our Vision</div>
+        <p class="mission-item-text">To be India's foremost technology company — and a defining force in the global intelligence economy by 2030.</p>
+      </div>
+      <div class="mission-item reveal reveal-d2">
+        <div class="mission-item-title">Our Origin</div>
+        <p class="mission-item-text">Proudly rooted in Dharmapuri, Tamil Nadu — proof that world-class technology can emerge from anywhere ambition dares to grow.</p>
+      </div>
+      <div class="mission-item reveal reveal-d3">
+        <div class="mission-item-title">Our Edge</div>
+        <p class="mission-item-text">Deep technical rigour, relentless innovation, and a founding team that refuses to accept "impossible" as a boundary.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══════════════════════ SERVICES ═══════════════════════ -->
+<section id="services" style="padding:100px 5%">
+  <div class="section-header">
+    <div class="eyebrow">What We Do</div>
+    <h2 class="section-title reveal">Our Services</h2>
+    <p class="section-sub reveal reveal-d1">Every service we offer is engineered with precision, deployed with purpose, and designed to create lasting advantage.</p>
+  </div>
+
+  <div class="services-hex-grid">
+    <!-- S1 -->
+    <div class="svc-cell reveal">
+      <div class="svc-icon-wrap">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="#c8a84b" stroke-width="1.2" stroke-dasharray="6 3"/>
+          <circle cx="26" cy="26" r="14" stroke="#c8a84b" stroke-width="1" fill="rgba(200,168,75,0.08)"/>
+          <circle cx="26" cy="12" r="3" fill="#c8a84b" opacity="0.8"/>
+          <circle cx="39" cy="20" r="2.5" fill="#c8a84b" opacity="0.6"/>
+          <circle cx="39" cy="32" r="2.5" fill="#c8a84b" opacity="0.6"/>
+          <circle cx="26" cy="40" r="3" fill="#c8a84b" opacity="0.8"/>
+          <circle cx="13" cy="32" r="2.5" fill="#c8a84b" opacity="0.6"/>
+          <circle cx="13" cy="20" r="2.5" fill="#c8a84b" opacity="0.6"/>
+          <line x1="26" y1="15" x2="26" y2="37" stroke="rgba(200,168,75,0.3)" stroke-width="0.8"/>
+          <line x1="26" y1="26" x2="37" y2="26" stroke="rgba(200,168,75,0.3)" stroke-width="0.8"/>
+          <circle cx="26" cy="26" r="5" fill="rgba(200,168,75,0.3)" stroke="#c8a84b" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="svc-name">Artificial Intelligence</div>
+      <p class="svc-desc">Custom neural networks, LLM integration, computer vision, and predictive intelligence systems — built to solve real business problems with measurable precision.</p>
+      <div class="svc-num">01</div>
+    </div>
+
+    <!-- S2 -->
+    <div class="svc-cell reveal reveal-d1">
+      <div class="svc-icon-wrap">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="26" cy="26" rx="22" ry="10" stroke="#c8a84b" stroke-width="1.2"/>
+          <ellipse cx="26" cy="26" rx="22" ry="10" stroke="#c8a84b" stroke-width="1.2" transform="rotate(60 26 26)"/>
+          <ellipse cx="26" cy="26" rx="22" ry="10" stroke="#c8a84b" stroke-width="1.2" transform="rotate(120 26 26)"/>
+          <circle cx="26" cy="26" r="5" fill="rgba(200,168,75,0.4)" stroke="#c8a84b" stroke-width="1.5"/>
+          <circle cx="26" cy="16" r="2.5" fill="#c8a84b" opacity="0.7"/>
+          <circle cx="26" cy="36" r="2.5" fill="#c8a84b" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="svc-name">Quantum Computing</div>
+      <p class="svc-desc">Quantum-inspired optimisation algorithms, qubit simulation environments, and post-quantum cryptographic frameworks for next-generation enterprise security.</p>
+      <div class="svc-num">02</div>
+    </div>
+
+    <!-- S3 -->
+    <div class="svc-cell reveal reveal-d2">
+      <div class="svc-icon-wrap">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="12" width="40" height="28" rx="3" fill="rgba(200,168,75,0.08)" stroke="#c8a84b" stroke-width="1.2"/>
+          <rect x="12" y="18" width="28" height="16" rx="1.5" fill="rgba(200,168,75,0.05)" stroke="rgba(200,168,75,0.4)" stroke-width="0.8"/>
+          <line x1="18" y1="44" x2="18" y2="50" stroke="#c8a84b" stroke-width="1.2"/>
+          <line x1="34" y1="44" x2="34" y2="50" stroke="#c8a84b" stroke-width="1.2"/>
+          <line x1="12" y1="50" x2="40" y2="50" stroke="#c8a84b" stroke-width="1.2"/>
+          <text x="26" y="30" text-anchor="middle" fill="#c8a84b" font-size="8" font-family="Courier New,monospace" opacity="0.8">&lt;/&gt;</text>
+        </svg>
+      </div>
+      <div class="svc-name">Enterprise Software</div>
+      <p class="svc-desc">Scalable SaaS platforms, cloud-native microservices, ERP systems, and API-first architectures engineered to perform under the most demanding enterprise conditions.</p>
+      <div class="svc-num">03</div>
+    </div>
+
+    <!-- S4 -->
+    <div class="svc-cell reveal">
+      <div class="svc-icon-wrap">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M26 4 L46 14 L46 38 L26 48 L6 38 L6 14 Z" stroke="#c8a84b" stroke-width="1.2" fill="rgba(200,168,75,0.06)"/>
+          <path d="M26 12 L40 19 L40 33 L26 40 L12 33 L12 19 Z" stroke="rgba(200,168,75,0.45)" stroke-width="0.8" fill="none"/>
+          <circle cx="26" cy="26" r="7" fill="rgba(200,168,75,0.12)" stroke="#c8a84b" stroke-width="1.2"/>
+          <circle cx="26" cy="26" r="3" fill="#c8a84b" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="svc-name">Cybersecurity</div>
+      <p class="svc-desc">Zero-trust architecture design, penetration testing, SOC-as-a-service, threat intelligence, and enterprise-grade encrypted infrastructure for the modern threat landscape.</p>
+      <div class="svc-num">04</div>
+    </div>
+
+    <!-- S5 -->
+    <div class="svc-cell reveal reveal-d1">
+      <div class="svc-icon-wrap">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="10" width="44" height="32" rx="3" fill="rgba(200,168,75,0.08)" stroke="#c8a84b" stroke-width="1.2"/>
+          <circle cx="18" cy="26" r="9" fill="rgba(200,168,75,0.1)" stroke="#c8a84b" stroke-width="0.9"/>
+          <circle cx="18" cy="26" r="4" fill="rgba(200,168,75,0.3)"/>
+          <line x1="31" y1="18" x2="44" y2="18" stroke="rgba(200,168,75,0.5)" stroke-width="1"/>
+          <line x1="31" y1="24" x2="44" y2="24" stroke="rgba(200,168,75,0.35)" stroke-width="0.8"/>
+          <line x1="31" y1="30" x2="40" y2="30" stroke="rgba(200,168,75,0.25)" stroke-width="0.8"/>
+          <line x1="31" y1="36" x2="38" y2="36" stroke="rgba(200,168,75,0.2)" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <div class="svc-name">Data Engineering</div>
+      <p class="svc-desc">Real-time data pipelines, distributed data lakes, ML-ready feature stores, and BI dashboards that transform raw data into strategic intelligence your business can act on.</p>
+      <div class="svc-num">05</div>
+    </div>
+
+    <!-- S6 -->
+    <div class="svc-cell reveal reveal-d2">
+      <div class="svc-icon-wrap">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 36 Q18 8 26 28 Q34 48 44 16" stroke="#c8a84b" stroke-width="1.5" fill="none"/>
+          <path d="M8 40 Q18 14 26 32 Q34 52 44 20" stroke="rgba(200,168,75,0.3)" stroke-width="0.8" fill="none" stroke-dasharray="3 3"/>
+          <circle cx="8" cy="36" r="3" fill="#ff9d3d"/>
+          <circle cx="26" cy="28" r="3" fill="#c8a84b"/>
+          <circle cx="44" cy="16" r="3" fill="#a8d8f0"/>
+          <line x1="8" y1="46" x2="44" y2="46" stroke="rgba(200,168,75,0.2)" stroke-width="0.8"/>
+          <line x1="8" y1="12" x2="8" y2="46" stroke="rgba(200,168,75,0.2)" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <div class="svc-name">Algorithm Design</div>
+      <p class="svc-desc">Bespoke computational algorithms for optimisation, graph theory, dynamic programming, and complex systems — engineered to deliver asymptotic efficiency at scale.</p>
+      <div class="svc-num">06</div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══════════════════════ TECH SHOWCASE ═══════════════════════ -->
+<section id="tech" style="padding:100px 5%">
+  <div class="eyebrow">Technology &amp; Vision</div>
+  <h2 class="section-title reveal">The Tools We Master</h2>
+  <p class="section-sub reveal reveal-d1">From silicon to software, from quantum theory to neural architecture — we operate at every layer of the technology stack.</p>
+
+  <div class="tech-grid">
+    <!-- Big left: Quantum -->
+    <div class="tech-big reveal">
+      <div class="tech-label">◈ QUANTUM COMPUTING DIVISION</div>
+      <div class="tech-title">The Quantum Frontier</div>
+      <p class="tech-body">
+        Vaultackie is building India's most advanced quantum-inspired computing research capability. We work with qubit superposition principles, quantum entanglement models, and post-quantum cryptographic protocols — translating theoretical physics into engineering advantage.
+      </p>
+      <div class="tech-vis">
+        <div class="quantum-rings">
+          <div class="qr qr1"></div>
+          <div class="qr qr2"></div>
+          <div class="qr qr3"></div>
+          <div class="qr-center"></div>
+        </div>
+      </div>
+      <div class="algo-display" style="margin-top:28px">
+        <span class="algo-chip">|ψ⟩ = α|0⟩+β|1⟩</span>
+        <span class="algo-chip">Shor's Algorithm</span>
+        <span class="algo-chip">Grover's Search</span>
+        <span class="algo-chip">QKD Protocol</span>
+      </div>
+    </div>
+
+    <!-- Computer / Hardware -->
+    <div class="tech-small reveal reveal-d1">
+      <div class="tech-label">◈ COMPUTE INFRASTRUCTURE</div>
+      <div class="tech-title">Enterprise-Grade Systems</div>
+      <p class="tech-body">High-performance distributed compute clusters, GPU farms for AI training, and edge computing nodes — powering Vaultackie's most demanding workloads.</p>
+      <div style="margin-top:24px">
+        <svg width="100%" height="80" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Server rack visual -->
+          <rect x="10" y="10" width="280" height="18" rx="2" fill="rgba(200,168,75,0.08)" stroke="rgba(200,168,75,0.3)" stroke-width="1"/>
+          <rect x="10" y="32" width="280" height="18" rx="2" fill="rgba(200,168,75,0.08)" stroke="rgba(200,168,75,0.3)" stroke-width="1"/>
+          <rect x="10" y="54" width="280" height="18" rx="2" fill="rgba(200,168,75,0.08)" stroke="rgba(200,168,75,0.3)" stroke-width="1"/>
+          <!-- LEDs -->
+          <circle cx="24" cy="19" r="3" fill="#c8a84b" opacity="0.8"><animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.5s" repeatCount="indefinite"/></circle>
+          <circle cx="24" cy="41" r="3" fill="#ff9d3d" opacity="0.8"><animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/></circle>
+          <circle cx="24" cy="63" r="3" fill="#a8d8f0" opacity="0.8"><animate attributeName="opacity" values="0.8;0.1;0.8" dur="1.2s" repeatCount="indefinite"/></circle>
+          <!-- Progress bars -->
+          <rect x="36" y="15" width="200" height="8" rx="1" fill="rgba(200,168,75,0.1)"/>
+          <rect x="36" y="15" width="160" height="8" rx="1" fill="rgba(200,168,75,0.4)"><animate attributeName="width" values="160;180;150;160" dur="4s" repeatCount="indefinite"/></rect>
+          <rect x="36" y="37" width="200" height="8" rx="1" fill="rgba(200,168,75,0.1)"/>
+          <rect x="36" y="37" width="120" height="8" rx="1" fill="rgba(255,157,61,0.4)"><animate attributeName="width" values="120;140;110;120" dur="3s" repeatCount="indefinite"/></rect>
+          <rect x="36" y="59" width="200" height="8" rx="1" fill="rgba(200,168,75,0.1)"/>
+          <rect x="36" y="59" width="180" height="8" rx="1" fill="rgba(168,216,240,0.4)"><animate attributeName="width" values="180;160;190;180" dur="5s" repeatCount="indefinite"/></rect>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Binary / Algorithms -->
+    <div class="tech-small reveal reveal-d2">
+      <div class="tech-label">◈ ALGORITHMIC CORE</div>
+      <div class="tech-title">Binary Intelligence</div>
+      <p class="tech-body">At the foundation of every system lies mathematics. We design algorithms with complexity guarantees and engineer them into production systems that never bend under load.</p>
+      <div style="margin-top:20px;font-family:'Courier New',monospace;font-size:.6rem;color:rgba(200,168,75,0.25);line-height:1.6;overflow:hidden;max-height:80px">
+        01001100 01110110 00110100 11001010<br/>
+        10110011 01010101 11001100 00110011<br/>
+        00101100 11010010 00110011 10010011<br/>
+        10110010 01001101 01101011 00111000<br/>
+        11010101 00110011 01011010 10100110
+      </div>
+    </div>
+
+    <!-- AI Brain -->
+    <div class="tech-small reveal reveal-d1">
+      <div class="tech-label">◈ NEURAL ARCHITECTURE</div>
+      <div class="tech-title">Deep Learning Systems</div>
+      <p class="tech-body">Transformer models, convolutional networks, reinforcement learning agents — Vaultackie's AI division is building the neural architectures that define tomorrow's intelligence.</p>
+    </div>
+
+    <!-- Systems thinking -->
+    <div class="tech-small reveal reveal-d2">
+      <div class="tech-label">◈ SYSTEM DESIGN</div>
+      <div class="tech-title">Architecture at Scale</div>
+      <p class="tech-body">Distributed systems capable of handling millions of concurrent operations. We design for resilience, performance, and the demands that haven't been imagined yet.</p>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══════════════════════ FUTURE PLANS ═══════════════════════ -->
+<section id="future" style="padding:100px 5%">
+  <div class="eyebrow">The Road Ahead</div>
+  <h2 class="section-title reveal">Future Plans</h2>
+
+  <div class="future-layout">
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2026 — Q1/Q2 · NOW</div>
+        <div class="tl-title">Foundation &amp; First Products</div>
+        <p class="tl-desc">Establishing Vaultackie's core engineering teams in Dharmapuri, Tamil Nadu. Launching our first suite of AI-powered enterprise products. Building the infrastructure that every future milestone will stand upon.</p>
+      </div>
+      <div class="tl-item reveal reveal-d1">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2026 — Q3/Q4</div>
+        <div class="tl-title">Quantum Research Lab Launch</div>
+        <p class="tl-desc">Opening our dedicated Quantum Computing Research Division. Partnerships with leading Indian academic institutions. Development of our first quantum-inspired optimisation SDK for enterprise deployment.</p>
+      </div>
+      <div class="tl-item reveal reveal-d2">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2027</div>
+        <div class="tl-title">National Expansion</div>
+        <p class="tl-desc">Offices in Chennai, Bengaluru, and Hyderabad. Strategic government contracts in defence-grade AI, smart infrastructure, and public sector digital transformation. First 50-person engineering team.</p>
+      </div>
+      <div class="tl-item reveal reveal-d3">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2028</div>
+        <div class="tl-title">VaultOS — Proprietary AI Platform</div>
+        <p class="tl-desc">Launch of VaultOS: Vaultackie's own intelligent operating environment for enterprise AI workloads, quantum simulation, and secure distributed computing. A platform built for what comes after today.</p>
+      </div>
+      <div class="tl-item reveal reveal-d4">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2030 &amp; Beyond</div>
+        <div class="tl-title">Global Presence · AGI Readiness</div>
+        <p class="tl-desc">International offices across Southeast Asia, MENA, and Europe. Contributing to post-quantum cryptographic standards. Pioneering responsible AGI integration frameworks. Vaultackie — a name the world will know.</p>
+      </div>
+    </div>
+
+    <!-- Future visual -->
+    <div class="future-vis">
+      <div class="circuit-board">
+        <div class="tech-label">◈ VAULTACKIE ROADMAP VISUALISATION</div>
+        <!-- Circuit board SVG -->
+        <svg width="100%" viewBox="0 0 320 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Main chips -->
+          <rect x="110" y="20" width="100" height="70" rx="3" fill="rgba(200,168,75,0.08)" stroke="rgba(200,168,75,0.35)" stroke-width="1"/>
+          <rect x="120" y="30" width="80" height="50" rx="2" fill="rgba(200,168,75,0.05)" stroke="rgba(200,168,75,0.2)" stroke-width="0.7"/>
+          <text x="160" y="60" text-anchor="middle" fill="rgba(200,168,75,0.8)" font-size="11" font-family="Times New Roman,serif" font-weight="bold">VAULT</text>
+          <text x="160" y="74" text-anchor="middle" fill="rgba(200,168,75,0.5)" font-size="7" font-family="Courier New,monospace">OS · 2028</text>
+
+          <!-- Secondary chips -->
+          <rect x="20" y="130" width="70" height="50" rx="2" fill="rgba(200,168,75,0.06)" stroke="rgba(200,168,75,0.25)" stroke-width="0.8"/>
+          <text x="55" y="160" text-anchor="middle" fill="rgba(200,168,75,0.5)" font-size="7" font-family="Courier New,monospace">AI CORE</text>
+
+          <rect x="230" y="130" width="70" height="50" rx="2" fill="rgba(200,168,75,0.06)" stroke="rgba(200,168,75,0.25)" stroke-width="0.8"/>
+          <text x="265" y="160" text-anchor="middle" fill="rgba(200,168,75,0.5)" font-size="7" font-family="Courier New,monospace">QUANTUM</text>
+
+          <rect x="110" y="220" width="100" height="60" rx="3" fill="rgba(200,168,75,0.08)" stroke="rgba(200,168,75,0.3)" stroke-width="1"/>
+          <text x="160" y="255" text-anchor="middle" fill="rgba(200,168,75,0.7)" font-size="9" font-family="Times New Roman,serif">SECURITY</text>
+
+          <rect x="40" y="300" width="80" height="44" rx="2" fill="rgba(200,168,75,0.05)" stroke="rgba(200,168,75,0.2)" stroke-width="0.8"/>
+          <text x="80" y="327" text-anchor="middle" fill="rgba(200,168,75,0.45)" font-size="7" font-family="Courier New,monospace">DATA ENG</text>
+
+          <rect x="200" y="300" width="80" height="44" rx="2" fill="rgba(200,168,75,0.05)" stroke="rgba(200,168,75,0.2)" stroke-width="0.8"/>
+          <text x="240" y="327" text-anchor="middle" fill="rgba(200,168,75,0.45)" font-size="7" font-family="Courier New,monospace">ALGO LAB</text>
+
+          <!-- Trace lines -->
+          <line x1="110" y1="55" x2="90" y2="55" stroke="rgba(200,168,75,0.25)" stroke-width="0.8"/>
+          <line x1="90" y1="55" x2="90" y2="155" stroke="rgba(200,168,75,0.2)" stroke-width="0.8"/>
+          <line x1="90" y1="155" x2="90" y2="155" stroke="rgba(200,168,75,0.25)" stroke-width="0.8"/>
+
+          <line x1="210" y1="55" x2="230" y2="55" stroke="rgba(200,168,75,0.25)" stroke-width="0.8"/>
+          <line x1="230" y1="55" x2="230" y2="130" stroke="rgba(200,168,75,0.2)" stroke-width="0.8"/>
+
+          <line x1="160" y1="90" x2="160" y2="220" stroke="rgba(200,168,75,0.3)" stroke-width="1"/>
+
+          <line x1="110" y1="250" x2="80" y2="250" stroke="rgba(200,168,75,0.2)" stroke-width="0.8"/>
+          <line x1="80" y1="250" x2="80" y2="300" stroke="rgba(200,168,75,0.2)" stroke-width="0.8"/>
+
+          <line x1="210" y1="250" x2="240" y2="250" stroke="rgba(200,168,75,0.2)" stroke-width="0.8"/>
+          <line x1="240" y1="250" x2="240" y2="300" stroke="rgba(200,168,75,0.2)" stroke-width="0.8"/>
+
+          <!-- Dots at intersections -->
+          <circle cx="90" cy="155" r="3" fill="#c8a84b" opacity="0.7"/>
+          <circle cx="230" cy="130" r="3" fill="#c8a84b" opacity="0.7"/>
+          <circle cx="160" cy="155" r="3" fill="#c8a84b" opacity="0.8">
+            <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="80" cy="300" r="2.5" fill="#c8a84b" opacity="0.5"/>
+          <circle cx="240" cy="300" r="2.5" fill="#c8a84b" opacity="0.5"/>
+
+          <!-- Binary decorative -->
+          <text x="10" y="375" fill="rgba(200,168,75,0.07)" font-size="7" font-family="Courier New,monospace">01001100 01110110 00110100 11001010 10110011</text>
+        </svg>
+
+        <!-- Tech specs list -->
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(200,168,75,0.1)">
+            <span style="font-family:var(--display);font-size:.65rem;letter-spacing:.14em;color:var(--gold)">STACK</span>
+            <span style="font-size:.82rem;color:var(--dim);font-style:italic">Cloud-Native · Quantum-Ready</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(200,168,75,0.1)">
+            <span style="font-family:var(--display);font-size:.65rem;letter-spacing:.14em;color:var(--gold)">AI ENGINE</span>
+            <span style="font-size:.82rem;color:var(--dim);font-style:italic">Proprietary + Open Standards</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0">
+            <span style="font-family:var(--display);font-size:.65rem;letter-spacing:.14em;color:var(--gold)">HQ</span>
+            <span style="font-size:.82rem;color:var(--dim);font-style:italic">Dharmapuri, Tamil Nadu 🇮🇳</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══════════════════════ JOIN CTA ═══════════════════════ -->
+<section id="join">
+  <div class="join-inner">
+    <!-- Binary decorative line -->
+    <div style="font-family:'Courier New',monospace;font-size:.6rem;color:rgba(200,168,75,0.12);letter-spacing:.08em;margin-bottom:36px;overflow:hidden;white-space:nowrap">
+      01101100 01110110 00110100 11001010 10110011 01010101 11001100 00110011 00101100 11010010
+    </div>
+
+    <div class="eyebrow" style="justify-content:center">Your Place in the Future</div>
+    <h2 class="join-title">
+      Join the<br/><span>Vault.</span>
+    </h2>
+    <p class="join-sub">
+      Whether you are an engineer, a researcher, a designer, or a builder — if you are driven by the conviction that technology can change the world, Vaultackie is where you belong.
+    </p>
+    <a href="https://forms.gle/MjbdMyRvbcY55KBUA"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="join-btn">
+      Join Today ↗
+    </a>
+    <p class="join-note">Applications reviewed personally by our founding team · hello@vaultackie.com</p>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══════════════════════ CONTACT ═══════════════════════ -->
+<section id="contact">
+  <div>
+    <div class="eyebrow">Reach Us</div>
+    <h2 class="section-title reveal">Contact Vaultackie</h2>
+    <p class="section-sub reveal reveal-d1" style="margin-bottom:36px">We respond personally to every message. Whether it's a partnership, a project, or just a conversation about the future of technology — we want to hear from you.</p>
+
+    <div class="contact-block">
+      <div class="c-item reveal">
+        <svg class="c-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" stroke="#c8a84b" stroke-width="1.2" fill="rgba(200,168,75,0.06)"/>
+          <rect x="10" y="14" width="20" height="14" rx="2" stroke="#c8a84b" stroke-width="1.1" fill="rgba(200,168,75,0.05)"/>
+          <path d="M10 17 L20 22 L30 17" stroke="#c8a84b" stroke-width="1.1" fill="none"/>
+        </svg>
+        <div>
+          <div class="c-label">General Enquiries</div>
+          <div class="c-val"><a href="mailto:hello@vaultackie.com">hello@vaultackie.com</a></div>
+        </div>
+      </div>
+
+      <div class="c-item reveal reveal-d1">
+        <svg class="c-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" stroke="#c8a84b" stroke-width="1.2" fill="rgba(200,168,75,0.06)"/>
+          <path d="M14 14 C13 22 15 24 23 22 C25 22 25 20 24 19.2 L22.5 18.5 C22 18 21.2 18.2 21 18.6 C20.2 19.4 18.5 18.2 17.2 16.9 C15.9 15.6 14.8 13.8 15.6 13 C16 12.6 16.2 11.8 15.8 11.4 L15 10 C14.2 9 12.5 9 14 14 Z" stroke="#c8a84b" stroke-width="1.1" fill="rgba(200,168,75,0.08)"/>
+        </svg>
+        <div>
+          <div class="c-label">Phone / WhatsApp</div>
+          <div class="c-val"><a href="tel:+919360998822">+91 93609 98822</a></div>
+        </div>
+      </div>
+
+      <div class="c-item reveal reveal-d2">
+        <svg class="c-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" stroke="#c8a84b" stroke-width="1.2" fill="rgba(200,168,75,0.06)"/>
+          <path d="M20 10 C16.13 10 13 13.13 13 17 C13 22.25 20 30 20 30 C20 30 27 22.25 27 17 C27 13.13 23.87 10 20 10 Z M20 19.5 C18.62 19.5 17.5 18.38 17.5 17 C17.5 15.62 18.62 14.5 20 14.5 C21.38 14.5 22.5 15.62 22.5 17 C22.5 18.38 21.38 19.5 20 19.5 Z" fill="rgba(200,168,75,0.3)" stroke="#c8a84b" stroke-width="0.5"/>
+        </svg>
+        <div>
+          <div class="c-label">Headquarters</div>
+          <div class="c-val">Dharmapuri, Tamil Nadu, India</div>
+        </div>
+      </div>
+
+      <div class="c-item reveal reveal-d3">
+        <svg class="c-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" stroke="#c8a84b" stroke-width="1.2" fill="rgba(200,168,75,0.06)"/>
+          <path d="M20 10 C14.48 10 10 14.48 10 20 C10 25.52 14.48 30 20 30 C25.52 30 30 25.52 30 20 C30 14.48 25.52 10 20 10 Z M20 28 C15.59 28 12 24.41 12 20 C12 15.59 15.59 12 20 12 C24.41 12 28 15.59 28 20 C28 24.41 24.41 28 20 28 Z" fill="rgba(200,168,75,0.1)"/>
+          <ellipse cx="20" cy="20" rx="14" ry="7" stroke="rgba(200,168,75,0.4)" stroke-width="0.8"/>
+          <line x1="10" y1="20" x2="30" y2="20" stroke="rgba(200,168,75,0.3)" stroke-width="0.8"/>
+          <line x1="20" y1="10" x2="20" y2="30" stroke="rgba(200,168,75,0.3)" stroke-width="0.8"/>
+        </svg>
+        <div>
+          <div class="c-label">Website</div>
+          <div class="c-val"><a href="https://www.vaultackie.com" target="_blank" rel="noopener">www.vaultackie.com</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social links -->
+    <div style="margin-top:32px">
+      <div style="font-family:var(--display);font-size:.66rem;letter-spacing:.22em;color:var(--gold);margin-bottom:16px">FOLLOW VAULTACKIE</div>
+      <div style="display:flex;gap:12px">
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/@vaultackie" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Vaultackie on YouTube" style="width:auto;padding:10px 16px;gap:10px;display:flex;align-items:center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          <span style="font-family:var(--display);font-size:.7rem;letter-spacing:.1em">YouTube</span>
+        </a>
+        <!-- X -->
+        <a href="https://www.x.com/vaultackie" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Vaultackie on X" style="width:auto;padding:10px 16px;gap:10px;display:flex;align-items:center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span style="font-family:var(--display);font-size:.7rem;letter-spacing:.1em">X / Twitter</span>
+        </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/vaultackie" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Vaultackie on Instagram" style="width:auto;padding:10px 16px;gap:10px;display:flex;align-items:center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span style="font-family:var(--display);font-size:.7rem;letter-spacing:.1em">Instagram</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact form -->
+  <div>
+    <div class="eyebrow">Send a Message</div>
+    <h3 style="font-family:var(--display2);font-size:1.5rem;color:var(--white);margin-bottom:28px">Get in Touch</h3>
+    <form class="contact-form" id="cform" novalidate>
+      <div>
+        <label class="f-label" for="fname">Full Name</label>
+        <input class="f-input" type="text" id="fname" name="name" placeholder="Your full name" required/>
+      </div>
+      <div>
+        <label class="f-label" for="femail">Email Address</label>
+        <input class="f-input" type="email" id="femail" name="email" placeholder="you@email.com" required/>
+      </div>
+      <div>
+        <label class="f-label" for="fsubject">Subject</label>
+        <input class="f-input" type="text" id="fsubject" name="subject" placeholder="Partnership · Project · Enquiry"/>
+      </div>
+      <div>
+        <label class="f-label" for="fmsg">Message</label>
+        <textarea class="f-textarea" id="fmsg" name="message" placeholder="Tell us about your project, idea, or enquiry..." required></textarea>
+      </div>
+      <button type="submit" class="f-submit">SEND MESSAGE →</button>
+    </form>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <span class="footer-brand-name">VAULTACKIE</span>
+      <p class="footer-brand-desc">
+        A next-generation IT company founded in 2026 by Vignesh Sivajayam in Dharmapuri, Tamil Nadu, India. Intelligence engineered. Future architected.
+      </p>
+      <!-- Social icons in footer -->
+      <div class="socials">
+        <a href="https://www.youtube.com/@vaultackie" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://www.x.com/vaultackie" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/vaultackie" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h5>Navigation</h5>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#tech">Technology</a></li>
+        <li><a href="#future">Future Plans</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Connect</h5>
+      <ul>
+        <li><a href="https://forms.gle/MjbdMyRvbcY55KBUA" target="_blank" rel="noopener noreferrer">Join Today</a></li>
+        <li><a href="mailto:hello@vaultackie.com">hello@vaultackie.com</a></li>
+        <li><a href="tel:+919360998822">+91 93609 98822</a></li>
+        <li><a href="https://www.youtube.com/@vaultackie" target="_blank" rel="noopener">YouTube</a></li>
+        <li><a href="https://www.x.com/vaultackie" target="_blank" rel="noopener">X / Twitter</a></li>
+        <li><a href="https://www.instagram.com/vaultackie" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copy">
+      © 2026 <strong>Vaultackie</strong>. All rights reserved.<br/>
+      Unauthorised use, reproduction, or distribution of any content from this website is strictly prohibited<br/>
+      without the express written permission of <strong>Vignesh Sivajayam</strong>, CEO &amp; Founder, Vaultackie.
+    </p>
+    <div class="footer-right">
+      VAULTACKIE.COM · EST. 2026 · DHARMAPURI, TN · INDIA
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
+<script>
+'use strict';
+
+// ── LOADER ──
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('gone');
+  },2200);
+});
+
+// ── CUSTOM CURSOR ──
+const cur=document.getElementById('cur');
+const trail=document.getElementById('cur-trail');
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function animTrail(){
+  tx+=(mx-tx)*.1;ty+=(my-ty)*.1;
+  trail.style.left=tx+'px';trail.style.top=ty+'px';
+  requestAnimationFrame(animTrail);
+})();
+
+// ── NEURAL CANVAS ──
+(function(){
+  const cvs=document.getElementById('neural-canvas');
+  const ctx=cvs.getContext('2d');
+  let W,H,pts=[];
+
+  function resize(){
+    W=cvs.width=window.innerWidth;
+    H=cvs.height=window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
+
+  const NUM=90;
+  for(let i=0;i<NUM;i++){
+    pts.push({
+      x:Math.random()*W,y:Math.random()*H,
+      vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,
+      r:Math.random()*1.5+.5,
+      alpha:Math.random()*.5+.1,
+      gold:Math.random()>.75
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // connections
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
+        const d=Math.hypot(dx,dy);
+        if(d<120){
+          ctx.save();
+          ctx.globalAlpha=(1-d/120)*0.12;
+          ctx.strokeStyle='#c8a84b';
+          ctx.lineWidth=.5;
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+    }
+    // points
+    pts.forEach(p=>{
+      ctx.save();
+      ctx.globalAlpha=p.alpha;
+      ctx.fillStyle=p.gold?'#c8a84b':'rgba(200,168,75,0.4)';
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fill();
+      ctx.restore();
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── NAV SCROLL ──
+const nav=document.getElementById('main-nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>60);
+},{passive:true});
+
+// ── HAMBURGER ──
+const burger=document.getElementById('hamburger');
+const navLinks=document.getElementById('nav-links');
+burger.addEventListener('click',()=>{
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click',()=>navLinks.classList.remove('open'));
+});
+
+// ── SCROLL REVEAL ──
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
+  });
+},{threshold:.12,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ── CONTACT FORM ──
+document.getElementById('cform').addEventListener('submit',e=>{
+  e.preventDefault();
+  const btn=e.target.querySelector('.f-submit');
+  const orig=btn.textContent;
+  btn.textContent='MESSAGE SENT ✓';
+  btn.style.background='linear-gradient(135deg,#4caf82,#2e7d52)';
+  setTimeout(()=>{
+    btn.textContent=orig;
+    btn.style.background='';
+    e.target.reset();
+  },3000);
+});
+
+// ── ACTIVE NAV ──
+const sections=document.querySelectorAll('section[id]');
+const navAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id;});
+  navAs.forEach(a=>{
+    const match=a.getAttribute('href')==='#'+cur;
+    a.style.color=match?'#c8a84b':'';
+  });
+},{passive:true});
+
+// Console branding
+console.log('%c VAULTACKIE © 2026 · Intelligence Engineered ',
+  'background:#c8a84b;color:#04070f;font-family:serif;font-size:14px;padding:8px 24px;font-weight:bold;letter-spacing:0.2em;');
+console.log('%c Vignesh Sivajayam · CEO & Founder · Dharmapuri, Tamil Nadu, India ',
+  'color:#c8a84b;font-size:11px;font-style:italic;');
+console.log('%c ⚠ Unauthorised usage is strictly prohibited. ',
+  'color:#ff9d3d;font-size:11px;');
+</script>
+
+</body>
+</html>
